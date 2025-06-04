@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '../integrations/supabase/client';
@@ -80,13 +79,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const login = async (username: string, password: string, role: 'student' | 'teacher' | 'administrator') => {
     try {
-      // For demo purposes, we'll use mock authentication with the existing mock users
+      // For demo purposes, we'll use mock authentication with expanded mock users
       const mockUsers = [
         { id: '1', username: 'dewton', role: 'student' as const, name: 'Dewton Osoro', class: 'Form 1A' },
         { id: '2', username: 'teacher1', role: 'teacher' as const, name: 'Mary Wanjiku' },
         { id: '3', username: 'admin', role: 'administrator' as const, name: 'John Kamau' },
         { id: '4', username: 'jane', role: 'student' as const, name: 'Jane Achieng', class: 'Form 1A' },
         { id: '5', username: 'peter', role: 'student' as const, name: 'Peter Mwangi', class: 'Form 1A' },
+        { id: '6', username: 'grace', role: 'student' as const, name: 'Grace Wanjiku', class: 'Form 2B' },
+        { id: '7', username: 'samuel', role: 'student' as const, name: 'Samuel Kiprop', class: 'Form 2B' },
+        { id: '8', username: 'mary', role: 'student' as const, name: 'Mary Njeri', class: 'Form 3A' },
+        { id: '9', username: 'david', role: 'student' as const, name: 'David Ochieng', class: 'Form 4A' },
       ];
 
       const foundUser = mockUsers.find(u => u.username === username && u.role === role);

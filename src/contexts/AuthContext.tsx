@@ -44,9 +44,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             .eq('id', session.user.id)
             .single();
           
+          // Type guard to ensure role is valid
+          const isValidRole = (role: string): role is 'student' | 'teacher' | 'administrator' => {
+            return ['student', 'teacher', 'administrator'].includes(role);
+          };
+          
           setUser({
             ...session.user,
-            profile: profile || undefined
+            profile: profile && isValidRole(profile.role) ? {
+              username: profile.username,
+              name: profile.name,
+              role: profile.role,
+              class: profile.class || undefined
+            } : undefined
           });
         } else {
           setUser(null);

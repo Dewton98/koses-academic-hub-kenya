@@ -7,6 +7,8 @@ import Layout from './Layout';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Badge } from './ui/badge';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from './ui/chart';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 
 const StudentDashboard = () => {
   const { user } = useAuth();
@@ -48,6 +50,20 @@ const StudentDashboard = () => {
     return 'md:grid-cols-3 lg:grid-cols-4';
   };
 
+  // Prepare chart data
+  const chartData = studentData.subjects.map(subject => ({
+    subject: subject.name.length > 12 ? subject.name.substring(0, 10) + '...' : subject.name,
+    fullName: subject.name,
+    score: subject.score
+  }));
+
+  const chartConfig = {
+    score: {
+      label: "Score",
+      color: "hsl(var(--chart-1))",
+    },
+  };
+
   return (
     <Layout title="Student Dashboard">
       <div className="space-y-6">
@@ -72,6 +88,42 @@ const StudentDashboard = () => {
               </div>
             </div>
           </CardHeader>
+        </Card>
+
+        {/* Performance Chart */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-koses-blue-800">Performance Overview</CardTitle>
+            <p className="text-sm text-gray-600">Visual representation of your scores across all subjects</p>
+          </CardHeader>
+          <CardContent>
+            <ChartContainer config={chartConfig} className="h-80">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={chartData} margin={{ top: 20, right: 30, left: 20, bottom: 60 }}>
+                  <XAxis 
+                    dataKey="subject" 
+                    angle={-45}
+                    textAnchor="end"
+                    height={80}
+                    fontSize={12}
+                  />
+                  <YAxis domain={[0, 100]} />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Bar 
+                    dataKey="score" 
+                    fill="url(#colorGradient)"
+                    radius={[4, 4, 0, 0]}
+                  />
+                  <defs>
+                    <linearGradient id="colorGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8}/>
+                      <stop offset="95%" stopColor="#10b981" stopOpacity={0.8}/>
+                    </linearGradient>
+                  </defs>
+                </BarChart>
+              </ResponsiveContainer>
+            </ChartContainer>
+          </CardContent>
         </Card>
 
         {/* Term Filter */}

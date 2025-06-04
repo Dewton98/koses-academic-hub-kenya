@@ -72,11 +72,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       // For demo purposes, we'll use mock authentication with the existing mock users
       const mockUsers = [
-        { id: '1', username: 'dewton', role: 'student', name: 'Dewton Osoro', class: 'Form 1A' },
-        { id: '2', username: 'teacher1', role: 'teacher', name: 'Mary Wanjiku' },
-        { id: '3', username: 'admin', role: 'administrator', name: 'John Kamau' },
-        { id: '4', username: 'jane', role: 'student', name: 'Jane Achieng', class: 'Form 1A' },
-        { id: '5', username: 'peter', role: 'student', name: 'Peter Mwangi', class: 'Form 1A' },
+        { id: '1', username: 'dewton', role: 'student' as const, name: 'Dewton Osoro', class: 'Form 1A' },
+        { id: '2', username: 'teacher1', role: 'teacher' as const, name: 'Mary Wanjiku' },
+        { id: '3', username: 'admin', role: 'administrator' as const, name: 'John Kamau' },
+        { id: '4', username: 'jane', role: 'student' as const, name: 'Jane Achieng', class: 'Form 1A' },
+        { id: '5', username: 'peter', role: 'student' as const, name: 'Peter Mwangi', class: 'Form 1A' },
       ];
 
       const foundUser = mockUsers.find(u => u.username === username && u.role === role);
@@ -88,10 +88,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           created_at: new Date().toISOString(),
           updated_at: new Date().toISOString(),
           aud: 'authenticated',
+          app_metadata: {},
+          user_metadata: {},
           profile: {
             username: foundUser.username,
             name: foundUser.name,
-            role: foundUser.role as 'student' | 'teacher' | 'administrator',
+            role: foundUser.role,
             class: foundUser.class
           }
         };

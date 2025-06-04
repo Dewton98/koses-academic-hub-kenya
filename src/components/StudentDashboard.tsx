@@ -11,8 +11,8 @@ const StudentDashboard = () => {
   const { user } = useAuth();
   const [selectedTerm, setSelectedTerm] = useState('Term 1');
   
-  // Find the student's data
-  const studentData = mockStudents.find(s => s.name === user?.name);
+  // Find the student's data using the profile name
+  const studentData = mockStudents.find(s => s.name === user?.profile?.name);
   
   if (!studentData) {
     return (

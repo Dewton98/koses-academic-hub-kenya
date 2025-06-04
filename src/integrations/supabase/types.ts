@@ -9,13 +9,89 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          class: string | null
+          created_at: string
+          id: string
+          name: string
+          rank: number | null
+          role: string
+          updated_at: string
+          username: string
+        }
+        Insert: {
+          class?: string | null
+          created_at?: string
+          id: string
+          name: string
+          rank?: number | null
+          role: string
+          updated_at?: string
+          username: string
+        }
+        Update: {
+          class?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          rank?: number | null
+          role?: string
+          updated_at?: string
+          username?: string
+        }
+        Relationships: []
+      }
+      scores: {
+        Row: {
+          class: string
+          created_at: string
+          id: string
+          score: number
+          student_id: string
+          subject: string
+          term: string
+          updated_at: string
+        }
+        Insert: {
+          class: string
+          created_at?: string
+          id?: string
+          score: number
+          student_id: string
+          subject: string
+          term: string
+          updated_at?: string
+        }
+        Update: {
+          class?: string
+          created_at?: string
+          id?: string
+          score?: number
+          student_id?: string
+          subject?: string
+          term?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scores_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_current_user_role: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never

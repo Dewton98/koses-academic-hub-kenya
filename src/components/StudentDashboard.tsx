@@ -106,7 +106,7 @@ const StudentDashboard = () => {
               <CardContent>
                 <div className="flex items-center justify-between mb-2">
                   <div className="text-2xl font-bold text-gray-900">{subject.score}%</div>
-                  <Badge className={getGradeColor(subject.score)} size="sm">
+                  <Badge className={getGradeColor(subject.score)}>
                     {subject.score >= 80 ? 'A' : 
                      subject.score >= 70 ? 'B' : 
                      subject.score >= 60 ? 'C' : 'D'}

@@ -22,31 +22,25 @@ const SubjectGrid: React.FC<SubjectGridProps> = ({ subjects }) => {
     return 'Needs Improvement';
   };
 
-  // Determine grid layout based on number of subjects
-  const getGridCols = () => {
-    const subjectCount = subjects.length;
-    if (subjectCount <= 6) return 'md:grid-cols-2 lg:grid-cols-3';
-    if (subjectCount <= 9) return 'md:grid-cols-3 lg:grid-cols-3';
-    return 'md:grid-cols-3 lg:grid-cols-4';
-  };
-
   return (
-    <div className={`grid gap-4 ${getGridCols()}`}>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
       {subjects.map((subject, index) => (
         <Card key={index} className="hover:shadow-lg transition-shadow duration-200 border-blue-100">
           <CardHeader className="pb-3">
-            <CardTitle className="text-base text-blue-800 leading-tight">
+            <CardTitle className="text-sm sm:text-base text-blue-800 leading-tight text-center sm:text-left">
               {subject.name}
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <div className="flex items-center justify-between mb-2">
-              <div className="text-2xl font-bold text-gray-900">{subject.score}%</div>
-              <Badge className={getGradeColor(subject.score)}>
+          <CardContent className="space-y-3">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <div className="text-xl sm:text-2xl font-bold text-gray-900 text-center sm:text-left">
+                {subject.score}%
+              </div>
+              <Badge className={`${getGradeColor(subject.score)} mx-auto sm:mx-0 w-fit text-xs`}>
                 {getGradeText(subject.score)}
               </Badge>
             </div>
-            <div className="bg-gray-200 rounded-full h-2">
+            <div className="bg-gray-200 rounded-full h-2 w-full">
               <div 
                 className="bg-gradient-to-r from-blue-500 to-indigo-500 h-2 rounded-full transition-all duration-300"
                 style={{ width: `${subject.score}%` }}

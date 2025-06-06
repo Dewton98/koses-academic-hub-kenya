@@ -28,7 +28,7 @@ const StudentDashboard = () => {
 
   return (
     <Layout title="Student Dashboard">
-      <div className="space-y-6">
+      <div className="space-y-6 max-w-full overflow-hidden">
         {/* Student Info Card */}
         <StudentInfoCard 
           studentData={studentData} 
@@ -36,18 +36,20 @@ const StudentDashboard = () => {
         />
 
         {/* Performance Chart */}
-        <PerformanceChart subjects={studentData.subjects} />
+        <div className="w-full overflow-x-auto">
+          <PerformanceChart subjects={studentData.subjects} />
+        </div>
 
         {/* Term Filter */}
-        <div className="flex justify-between items-center">
-          <h3 className="text-lg font-semibold text-gray-900">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+          <h3 className="text-base sm:text-lg font-semibold text-gray-900 text-center sm:text-left w-full sm:w-auto">
             Academic Performance
-            <span className="text-sm text-gray-600 ml-2">
+            <span className="block sm:inline text-sm text-gray-600 sm:ml-2">
               ({studentData.subjects.length} subjects)
             </span>
           </h3>
           <Select value={selectedTerm} onValueChange={setSelectedTerm}>
-            <SelectTrigger className="w-40 border-blue-200">
+            <SelectTrigger className="w-full sm:w-40 border-blue-200">
               <SelectValue />
             </SelectTrigger>
             <SelectContent className="bg-white">

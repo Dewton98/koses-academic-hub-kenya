@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { mockStudents } from '../data/mockData';
 import Layout from './Layout';
@@ -8,6 +7,7 @@ import { Input } from './ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Badge } from './ui/badge';
 import { toast } from 'sonner';
+import ClassSubjectSummary from './class/ClassSubjectSummary';
 
 const TeacherDashboard = () => {
   const [studentName, setStudentName] = useState('');
@@ -133,6 +133,12 @@ const TeacherDashboard = () => {
             </form>
           </CardContent>
         </Card>
+
+        {/* Class Subject Performance Summary */}
+        <ClassSubjectSummary 
+          className="Form 1A" 
+          students={mockStudents}
+        />
 
         {/* Class Rankings */}
         <Card>

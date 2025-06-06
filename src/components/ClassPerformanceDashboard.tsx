@@ -1,10 +1,10 @@
-
 import React from 'react';
 import { mockClassPerformance, mockStudents } from '../data/mockData';
 import Layout from './Layout';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import ClassSubjectSummary from './class/ClassSubjectSummary';
 
 const ClassPerformanceDashboard = () => {
   const { subjects, totalStudents, averageScore } = mockClassPerformance;
@@ -76,6 +76,12 @@ const ClassPerformanceDashboard = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* Class Subject Performance Summary */}
+        <ClassSubjectSummary 
+          className="Form 1A" 
+          students={mockStudents}
+        />
 
         {/* Subject Performance Bar Chart */}
         <Card>

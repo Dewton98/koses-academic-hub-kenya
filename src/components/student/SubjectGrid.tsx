@@ -15,6 +15,13 @@ const SubjectGrid: React.FC<SubjectGridProps> = ({ subjects }) => {
     return 'bg-red-100 text-red-800';
   };
 
+  const getGradeText = (score: number) => {
+    if (score >= 80) return 'Excellent';
+    if (score >= 70) return 'Good';
+    if (score >= 60) return 'Fair';
+    return 'Needs Improvement';
+  };
+
   // Determine grid layout based on number of subjects
   const getGridCols = () => {
     const subjectCount = subjects.length;
@@ -26,24 +33,22 @@ const SubjectGrid: React.FC<SubjectGridProps> = ({ subjects }) => {
   return (
     <div className={`grid gap-4 ${getGridCols()}`}>
       {subjects.map((subject, index) => (
-        <Card key={index} className="hover:shadow-lg transition-shadow duration-200 border-amber-100">
+        <Card key={index} className="hover:shadow-lg transition-shadow duration-200 border-blue-100">
           <CardHeader className="pb-3">
-            <CardTitle className="text-base text-amber-800 leading-tight">
-              {subject.name} 🐕
+            <CardTitle className="text-base text-blue-800 leading-tight">
+              {subject.name}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex items-center justify-between mb-2">
               <div className="text-2xl font-bold text-gray-900">{subject.score}%</div>
               <Badge className={getGradeColor(subject.score)}>
-                {subject.score >= 80 ? 'Good Dog! 🌟' : 
-                 subject.score >= 70 ? 'Good Boy/Girl 🦴' : 
-                 subject.score >= 60 ? 'Keep Trying 🎾' : 'Needs Training 🐾'}
+                {getGradeText(subject.score)}
               </Badge>
             </div>
             <div className="bg-gray-200 rounded-full h-2">
               <div 
-                className="bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-full transition-all duration-300"
+                className="bg-gradient-to-r from-blue-500 to-indigo-500 h-2 rounded-full transition-all duration-300"
                 style={{ width: `${subject.score}%` }}
               ></div>
             </div>

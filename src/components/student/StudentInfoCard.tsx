@@ -21,26 +21,26 @@ const StudentInfoCard: React.FC<StudentInfoCardProps> = ({ studentData, totalStu
 
   const getRankDisplay = (rank: number, total: number) => {
     const suffix = rank === 1 ? 'st' : rank === 2 ? 'nd' : rank === 3 ? 'rd' : 'th';
-    return `${rank}${suffix} in the pack of ${total}`;
+    return `${rank}${suffix} out of ${total}`;
   };
 
   return (
-    <Card className="bg-gradient-to-r from-amber-500 to-orange-500 text-white">
+    <Card className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white">
       <CardHeader>
-        <CardTitle className="text-xl">Woof woof, {studentData.name}! 🐾</CardTitle>
+        <CardTitle className="text-xl">Welcome, {studentData.name}!</CardTitle>
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <p className="text-amber-100">
-            Pack Level: {studentData.class} 
+          <p className="text-blue-100">
+            Class: {studentData.class} 
             <span className="ml-2 text-sm opacity-90">
-              ({isLowerForm ? '11 training areas' : '8 core skills'})
+              ({isLowerForm ? '11 subjects' : '8 subjects'})
             </span>
           </p>
           <div className="flex items-center gap-4">
-            <p className="text-amber-100">
-              Overall Tail Wag Score: <span className="font-bold text-white">{studentData.average.toFixed(1)}% 🎾</span>
+            <p className="text-blue-100">
+              Overall Average: <span className="font-bold text-white">{studentData.average.toFixed(1)}%</span>
             </p>
             <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
-              Pack Rank: {getRankDisplay(studentData.rank, totalStudents)} 🏆
+              Rank: {getRankDisplay(studentData.rank, totalStudents)}
             </Badge>
           </div>
         </div>

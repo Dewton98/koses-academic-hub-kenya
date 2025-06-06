@@ -18,7 +18,7 @@ const PerformanceChart: React.FC<PerformanceChartProps> = ({ subjects }) => {
 
   const chartConfig = {
     score: {
-      label: "Treats Earned",
+      label: "Score",
       color: "hsl(var(--chart-1))",
     },
   };
@@ -26,8 +26,8 @@ const PerformanceChart: React.FC<PerformanceChartProps> = ({ subjects }) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-amber-800">Bark Performance Chart 📊</CardTitle>
-        <p className="text-sm text-gray-600">How many treats you've earned in each training area! 🦴</p>
+        <CardTitle className="text-blue-800">Performance Chart</CardTitle>
+        <p className="text-sm text-gray-600">Your scores across all subjects</p>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-80">
@@ -44,13 +44,13 @@ const PerformanceChart: React.FC<PerformanceChartProps> = ({ subjects }) => {
               <ChartTooltip content={<ChartTooltipContent />} />
               <Bar 
                 dataKey="score" 
-                fill="url(#dogGradient)"
+                fill="url(#academicGradient)"
                 radius={[4, 4, 0, 0]}
               />
               <defs>
-                <linearGradient id="dogGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#f59e0b" stopOpacity={0.8}/>
-                  <stop offset="95%" stopColor="#ea580c" stopOpacity={0.8}/>
+                <linearGradient id="academicGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8}/>
+                  <stop offset="95%" stopColor="#6366f1" stopOpacity={0.8}/>
                 </linearGradient>
               </defs>
             </BarChart>

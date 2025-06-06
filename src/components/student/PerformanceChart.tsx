@@ -3,18 +3,24 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '../ui/chart';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
+import { getGradeFromScore } from '../../utils/gradeUtils';
 
 interface PerformanceChartProps {
   subjects: { name: string; score: number }[];
 }
 
 const PerformanceChart: React.FC<PerformanceChartProps> = ({ subjects }) => {
-  // Prepare chart data
-  const chartData = subjects.map(subject => ({
-    subject: subject.name.length > 12 ? subject.name.substring(0, 10) + '...' : subject.name,
-    fullName: subject.name,
-    score: subject.score
-  }));
+  // Prepare chart data with grades
+  const chartData = subjects.map(subject => {
+    const { grade, points } = getGradeFromScore(subject.score);
+    return {
+      subject: subject.name.length > 12 ? subject.name.substring(0, 10) + '...' : subject.name,
+      fullName: subject.name,
+      score: subject.score,
+      grade: grade,
+      points: points
+    };
+  });
 
   const chartConfig = {
     score: {
@@ -23,11 +29,25 @@ const PerformanceChart: React.FC<PerformanceChartProps> = ({ subjects }) => {
     },
   };
 
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload;
+      return (
+        <div className="bg-white p-3 border border-gray-200 rounded shadow-lg">
+          <p className="font-semibold text-gray-900">{data.fullName}</p>
+          <p className="text-blue-600">Score: {data.score}%</p>
+          <p className="text-green-600 font-medium">Grade: {data.grade} ({data.points} points)</p>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <Card>
       <CardHeader>
         <CardTitle className="text-blue-800">Performance Chart</CardTitle>
-        <p className="text-sm text-gray-600">Your scores across all subjects</p>
+        <p className="text-sm text-gray-600">Your scores and grades across all subjects</p>
       </CardHeader>
       <CardContent>
         <ChartContainer config={chartConfig} className="h-80">
@@ -41,7 +61,7 @@ const PerformanceChart: React.FC<PerformanceChartProps> = ({ subjects }) => {
                 fontSize={12}
               />
               <YAxis domain={[0, 100]} />
-              <ChartTooltip content={<ChartTooltipContent />} />
+              <ChartTooltip content={<CustomTooltip />} />
               <Bar 
                 dataKey="score" 
                 fill="url(#academicGradient)"
